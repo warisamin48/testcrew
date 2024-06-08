@@ -11,13 +11,9 @@ public class SubscriptionValidator {
        
         System.setProperty("webdriver.chrome.driver", "chromedriver");
 
-      
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(options);
 
-       
-        driver.get("https://subscribe.stctv.com/");
+         driver.get("https://subscribe.stctv.com/");
 
        
         validateSubscription(driver, "SA");
@@ -26,3 +22,26 @@ public class SubscriptionValidator {
 
        
         driver.quit();
+
+
+public static void validateSubscriptionPackages(WebDriver driver, String country) {
+       
+        WebElement countryDropdown = driver.findElement(By.id("country-dropdown"));
+        countryDropdown.sendKeys(country);
+
+        WebElement packageTypeElement = driver.findElement(By.className("package-type"));
+        String packageType = packageTypeElement.getText();
+
+        WebElement packagePriceElement = driver.findElement(By.className("package-price"));
+        String packagePrice = packagePriceElement.getText();
+
+        WebElement packageCurrencyElement = driver.findElement(By.className("package-currency"));
+        String packageCurrency = packageCurrencyElement.getText();
+
+        System.out.println("Subscription packages for " + country + ":");
+        System.out.println("Type: " + packageType);
+        System.out.println("Price: " + packagePrice);
+        System.out.println("Currency: " + packageCurrency);
+        System.out.println();
+    }
+}
